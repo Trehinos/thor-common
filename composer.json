@@ -1,0 +1,30 @@
+{
+  "name": "trehinos/thor-common",
+  "type": "library",
+  "description": "Le coeur du framework Thor",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Thor\\Common\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Sébastien GELDREICH",
+      "email": "sebastien.geldreich@lafoirfouille.fr"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "10.*"
+  }
+}
