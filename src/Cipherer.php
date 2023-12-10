@@ -2,7 +2,7 @@
 
 namespace Thor\Common;
 
-class Cipherer
+final class Cipherer
 {
 
     private static ?self $aes256 = null;
