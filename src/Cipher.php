@@ -59,24 +59,24 @@ class Cipher
         );
     }
 
-    public static function setInstance(string $passphrase): void
+    public static function reset(string $passphrase, bool $raw = false): self
     {
-        self::$aes256 = new self($passphrase, option_raw: false);
+        return self::$aes256 = new self($passphrase, option_raw: $raw);
     }
 
-    public static function getInstance(): self
+    public static function get(): self
     {
-        return self::$aes256 ??= new self(Guid::hex(), option_raw: false);
+        return self::$aes256 ??= self::reset(Guid::hex());
     }
 
     public static function cipher(string $data): string
     {
-        return self::getInstance()->encrypt($data);
+        return self::get()->encrypt($data);
     }
 
     public static function decipher(string $data): string
     {
-        return self::getInstance()->decrypt($data);
+        return self::get()->decrypt($data);
     }
 
 }
