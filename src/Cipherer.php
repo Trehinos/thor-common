@@ -2,7 +2,7 @@
 
 namespace Thor\Common;
 
-class Cipher
+class Cipherer
 {
 
     private static ?self $aes256 = null;
@@ -20,13 +20,15 @@ class Cipher
         public readonly int $tag_length = 16,
         public readonly string $aad = '',
     ) {
-        if ($this->passphrase === '') {
-            $this->passphrase = Guid::hex();
-        }
-        if ($this->iv === null) {
-            $len = openssl_cipher_iv_length($this->cipher_algo);
-            $this->iv = openssl_random_pseudo_bytes($len);
-        }
+        $this->passphrase ??= Guid::hex();
+        $this->iv ??= self::random($this->ivLength());
+    }
+
+    public function ivLength(): int {
+        return openssl_cipher_iv_length($this->cipher_algo);
+    }
+    public function options(): int {
+        return ($this->option_raw ? self::RAW : 0) | ($this->option_pad ? self::PAD : 0);
     }
 
     public function encrypt(
@@ -37,7 +39,7 @@ class Cipher
             $data,
             $this->cipher_algo,
             $this->passphrase,
-            ($this->option_raw ? self::RAW : 0) | ($this->option_pad ? self::PAD : 0),
+            $this->options(),
             $this->iv,
             $this->tag,
             $this->aad,
@@ -52,11 +54,16 @@ class Cipher
             $data,
             $this->cipher_algo,
             $this->passphrase,
-            ($this->option_raw ? self::RAW : 0) | ($this->option_pad ? self::PAD : 0),
+            $this->options(),
             $this->iv,
             $this->tag,
             $this->aad
         );
+    }
+
+    public static function random(int $length = 16): string
+    {
+        return openssl_random_pseudo_bytes($length);
     }
 
     public static function reset(string $passphrase, bool $raw = false): self
