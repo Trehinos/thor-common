@@ -1,6 +1,10 @@
 <?php
 
-namespace Thor\Common;
+namespace Thor\Common\Encryption;
+
+use Exception;
+use Thor\Common\Debug\Throws;
+use Thor\Common\Guid;
 
 final class Cipherer
 {
@@ -10,6 +14,7 @@ final class Cipherer
     public const RAW = OPENSSL_RAW_DATA;
     public const PAD = OPENSSL_ZERO_PADDING;
 
+    #[Throws(Exception::class)]
     public function __construct(
         public ?string $passphrase = null,
         public ?string $iv = null,
