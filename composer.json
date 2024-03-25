@@ -25,7 +25,8 @@
     "ext-mbstring": "*",
     "ext-openssl": "*",
     "symfony/yaml": "^7",
-    "symfony/var-dumper": "^7"
+    "symfony/var-dumper": "^7",
+    "trehinos/thor-option": "@stable"
   },
   "require-dev": {
     "phpunit/phpunit": "10.*"
