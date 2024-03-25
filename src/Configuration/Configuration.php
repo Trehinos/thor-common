@@ -6,8 +6,7 @@ use ArrayObject;
 
 class Configuration extends ArrayObject
 {
-
-    private static ?Configuration $configuration = null;
+    protected static array $configurations = [];
 
     /**
      * @param array $configArray
@@ -37,7 +36,7 @@ class Configuration extends ArrayObject
      */
     public static function get(mixed ...$args): static
     {
-        return static::$configuration ??= new static(...$args);
+        return static::$configurations[static::class] ??= new static(...$args);
     }
 
 }
