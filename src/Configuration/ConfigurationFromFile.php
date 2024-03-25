@@ -30,16 +30,18 @@ class ConfigurationFromFile extends Configuration
     /**
      * Gets the configuration from a file in the config folder.
      *
+     * @template T
      * @param string $path
+     * @param class-string<T> $class
      *
-     * @return static[]
+     * @return T[]
      */
-    public static function multipleFromFile(string $path): array
+    public static function multipleFromFile(string $path, string $class): array
     {
         $array = [];
         $data = self::loadYml($path);
         foreach ($data as $item) {
-            $array[] = new self($item);
+            $array[] = new $class($item);
         }
         return $array;
     }
