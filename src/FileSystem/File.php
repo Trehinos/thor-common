@@ -64,8 +64,9 @@ class File
         $this->syncWithDisk = true;
         Stream::copyToStream(
             $this->content,
-            Stream::createFromFile($this->filename, 'w+')
+            $stream = Stream::createFromFile($this->filename, 'w+')
         );
+        $stream->close();
     }
 
     /**
