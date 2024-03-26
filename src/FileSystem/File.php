@@ -14,7 +14,7 @@ class File
      * @param string             $filename
      * @param Stream|string|null $content
      */
-    public function __construct(private readonly string $filename, Stream|string|null $content = null)
+    public function __construct(public readonly string $filename, Stream|string|null $content = null)
     {
         $this->content = match (true) {
             $content instanceof Stream => $content,
