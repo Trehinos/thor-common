@@ -5,7 +5,6 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use Thor\Common\Debug\ResultState;
 use Thor\Common\Debug\RetryResolver;
-
 final class RetryResolverTest extends TestCase
 {
 
